@@ -5,6 +5,8 @@ package de.jando.manga
  */
 interface IManga {
 
+    public void beginWithDownload()
+
     public void getFileListToDownload()
 
     public void extractAllEpisodeNumbers(String alleEpisodeHtmlContent)

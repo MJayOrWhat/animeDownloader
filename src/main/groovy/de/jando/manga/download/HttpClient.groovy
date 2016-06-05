@@ -21,7 +21,7 @@ class HttpClient {
         response = httpclient.execute(httpGet)
         GString newFilePathName = "${folderAndFileName}/${folderAndFileName}.E${episodeNumber}.mp4"
         File fileToDownload = new File(newFilePathName)
-        if (!fileToDownload.exists()) {
+        if (!fileToDownload.exists() || fileToDownload.size() == 0) {
             new File(newFilePathName).newOutputStream().write(getFileContentBytes(response))
             println "${folderAndFileName} Episode ${episodeNumber} successfully downloaded"
         } else {

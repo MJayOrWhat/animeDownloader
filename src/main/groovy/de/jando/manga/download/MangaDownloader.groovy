@@ -1,6 +1,8 @@
 package de.jando.manga.download
 
+import de.jando.manga.MangaFairyTail
 import de.jando.manga.MangaNaruto
+import de.jando.manga.MangaOnePiece
 import org.apache.http.client.methods.HttpGet
 
 class MangaDownloader {
@@ -23,8 +25,9 @@ class MangaDownloader {
 
     public static void main(String[] args) {
         //download()
-       new MangaNaruto().getFileListToDownload()
-
+        //new MangaNaruto().beginWithDownload()
+//        new MangaFairyTail().beginWithDownload()
+        new MangaOnePiece().beginWithDownload()
     }
 
 

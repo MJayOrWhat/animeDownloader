@@ -26,8 +26,8 @@ class MangaDownloader {
     public static void main(String[] args) {
         //download()
         //new MangaNaruto().beginWithDownload()
-//        new MangaFairyTail().beginWithDownload()
-        new MangaOnePiece().beginWithDownload()
+         new MangaFairyTail().beginWithDownload()
+       // new MangaOnePiece().beginWithDownload()
     }
 
 

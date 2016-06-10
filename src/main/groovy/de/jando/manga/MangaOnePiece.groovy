@@ -32,7 +32,6 @@ class MangaOnePiece extends MangaTube implements IManga {
         println "Fetching all EpisodeNumbers"
         alleEpisodeHtmlContent.eachLine { String htmlLine ->
             if (htmlLine.matches("<tr class=\"mediaitem\" onclick=\"window.location.href = '/folge/[0-9]+...")) {
-                println htmlLine.indexOf(episodeStringPart)
                 String titleAndEpisodeNumber = htmlLine.substring(htmlLine.indexOf(episodeStringPart), htmlLine.indexOf(">") - 2)
                 episodeList.add(titleAndEpisodeNumber.split("/")[indexForEpisode])
             }

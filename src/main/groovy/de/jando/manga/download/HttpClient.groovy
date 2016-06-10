@@ -11,22 +11,20 @@ import org.apache.http.impl.client.HttpClients
  */
 class HttpClient {
 
+    String path = "/media/mjando/Libraries/Owncloud/Serien/"
+
     CloseableHttpClient httpclient
     CloseableHttpResponse response
     HttpGet httpGet
 
     public downloadFileResource(String fileRessource, String folderAndFileName, String episodeNumber) {
         httpclient = HttpClients.createDefault()
+        File file = getFileOnDisk(episodeNumber, folderAndFileName)
         httpGet = new HttpGet(fileRessource)
         response = httpclient.execute(httpGet)
-        GString newFilePathName = "${folderAndFileName}/${folderAndFileName}.E${episodeNumber}.mp4"
-        File fileToDownload = new File(newFilePathName)
-        if (!fileToDownload.exists() || fileToDownload.size() == 0) {
-            new File(newFilePathName).newOutputStream().write(getFileContentBytes(response))
-            println "${folderAndFileName} Episode ${episodeNumber} successfully downloaded"
-        } else {
-            println "${folderAndFileName} Episode ${episodeNumber} skipped, it already exist"
-        }
+        file.newOutputStream().write(getFileContentBytes(response))
+        println "${folderAndFileName} Episode ${episodeNumber} successfully downloaded"
+
 
     }
 
@@ -38,7 +36,15 @@ class HttpClient {
         httpclient = HttpClients.createDefault()
         HttpGet httpGet = new HttpGet(urlContentToDisplay)
         response = httpclient.execute(httpGet)
-        return IOUtils.toString(response.getEntity().getContent(), 'UTF-8')
+        String fileContent = IOUtils.toString(response.getEntity().getContent(), 'UTF-8')
+        return fileContent
     }
 
+    boolean checkForFile(String episodeNumber, folderAndFileName) {
+        return getFileOnDisk(episodeNumber, folderAndFileName).exists() && getFileOnDisk(episodeNumber, folderAndFileName).size() != 0
+    }
+
+    File getFileOnDisk(String episodeNumber, String folderAndFileName) {
+        return new File("${path}${folderAndFileName}/${folderAndFileName}.E${episodeNumber}.mp4")
+    }
 }

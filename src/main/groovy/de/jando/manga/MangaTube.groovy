@@ -7,8 +7,10 @@ import de.jando.manga.download.HttpClient
  */
 abstract class MangaTube {
 
+    String path = "/home/mjando/ownCloud/Serien/"
+
     void setupFolder() {
-        new File(folderAndFileName).mkdirs()
+        new File(path + folderAndFileName).mkdirs()
     }
 
     void getFileListToDownload() {
@@ -21,9 +23,7 @@ abstract class MangaTube {
         println "Fetching all EpisodeNumbers"
         alleEpisodeHtmlContent.eachLine { String htmlLine ->
             if (htmlLine.contains(this.htmlLine)) {
-                println htmlLine
                 String titleAndEpisodeNumber = htmlLine.substring(htmlLine.indexOf(episodeStringPart), htmlLine.indexOf(">") - 2)
-                println titleAndEpisodeNumber
                 episodeList.add(titleAndEpisodeNumber.split("-")[indexForEpisode])
             }
 
@@ -43,8 +43,9 @@ abstract class MangaTube {
     void filterVideoPage(String videoPageContent, String episodeNumber) {
         videoPageContent.eachLine { String htmlLine ->
             String videoUrl = null
-
-            if (htmlLine.startsWith(iFrameString)) {
+//            println htmlLine
+            if(htmlLine.contains("ani-stream")){
+// if (htmlLine.toUpperCase().startsWith(iFrameString) ) {
                 println "Video file fetched"
                 videoUrl = htmlLine.split("\"")[1]
             }

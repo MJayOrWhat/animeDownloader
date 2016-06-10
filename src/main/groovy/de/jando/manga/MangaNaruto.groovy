@@ -7,6 +7,8 @@ import de.jando.manga.download.HttpClient
  */
 class MangaNaruto extends MangaTube implements IManga {
 
+    String path
+
     String folderAndFileName = "Naruto.Shippuuden"
     String hostUrl = "http://naruto-tube.org/"
     String episodesString = "shippuuden-folgen"
@@ -15,15 +17,12 @@ class MangaNaruto extends MangaTube implements IManga {
 
     Integer indexForEpisode = 2
 
-    String episodeStringPart = "${htmlLine}-"
+    String episodeStringPart = "/" +episodesString
     String allEpisodes = hostUrl + episodesString
     String domainPart = "${htmlLine}-"
     Set<String> episodeList = new LinkedList<>()
     String completeUrl = hostUrl + domainPart
-    HttpClient httpClient = new HttpClient()
+    HttpClient httpClient
 
-    public void beginWithDownload() {
-        this.setupFolder()
-        this.getFileListToDownload()
-    }
+
 }

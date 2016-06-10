@@ -2,15 +2,20 @@ package de.jando.manga
 
 import de.jando.manga.download.HttpClient
 
-/**
- * Created by mjand on 05.06.2016.
- */
 abstract class MangaTube {
 
-    String path = "/home/mjando/ownCloud/Serien/"
+    public void beginWithDownload() {
+        this.setupFolder()
+        httpClient = new HttpClient(path: path)
+        this.getFileListToDownload()
+    }
 
     void setupFolder() {
         new File(path + folderAndFileName).mkdirs()
+    }
+
+    public boolean fileAlreadyExists(String episodeNumber) {
+        return httpClient.checkForFile(episodeNumber, folderAndFileName)
     }
 
     void getFileListToDownload() {
@@ -23,10 +28,8 @@ abstract class MangaTube {
         println "Fetching all EpisodeNumbers"
         alleEpisodeHtmlContent.eachLine { String htmlLine ->
             if (htmlLine.contains(this.htmlLine)) {
-                String titleAndEpisodeNumber = htmlLine.substring(htmlLine.indexOf(episodeStringPart), htmlLine.indexOf(">") - 2)
-                episodeList.add(titleAndEpisodeNumber.split("-")[indexForEpisode])
+                episodeList.add(htmlLine.split("-")[indexForEpisode].replace("'", "").replace("\"", "").replace(">", ""))
             }
-
         }
     }
 
@@ -43,9 +46,7 @@ abstract class MangaTube {
     void filterVideoPage(String videoPageContent, String episodeNumber) {
         videoPageContent.eachLine { String htmlLine ->
             String videoUrl = null
-//            println htmlLine
-            if(htmlLine.contains("ani-stream")){
-// if (htmlLine.toUpperCase().startsWith(iFrameString) ) {
+            if (htmlLine.contains("ani-stream")) {
                 println "Video file fetched"
                 videoUrl = htmlLine.split("\"")[1]
             }

@@ -7,26 +7,23 @@ import de.jando.manga.download.HttpClient
  */
 class MangaOnePiece extends MangaTube implements IManga {
 
+    String path
+
     String folderAndFileName = "One.Piece"
     String hostUrl = "http://onepiece-tube.com/"
-    String episodesString = "folge"
+    String episodesString = "folge/"
     String htmlLine = "/folge"
     String iFrameString = "<IFRAME SRC="
-    Integer indexForEpisode = 1
+
+    Integer indexForEpisode = 2
 
     String episodeStringPart = "/" +episodesString
     String allEpisodes = hostUrl + episodesString
     String domainPart = "${htmlLine}-"
     Set<String> episodeList = new LinkedList<>()
-    String completeUrl = hostUrl + episodesString
-    HttpClient httpClient = new HttpClient()
+    String completeUrl = allEpisodes
+    HttpClient httpClient
 
-
-    @Override
-    void beginWithDownload() {
-        setupFolder()
-        getFileListToDownload()
-    }
 
     void extractAllEpisodeNumbers(String alleEpisodeHtmlContent) {
         println "Fetching all EpisodeNumbers"
@@ -35,7 +32,8 @@ class MangaOnePiece extends MangaTube implements IManga {
                 String titleAndEpisodeNumber = htmlLine.substring(htmlLine.indexOf(episodeStringPart), htmlLine.indexOf(">") - 2)
                 episodeList.add(titleAndEpisodeNumber.split("/")[indexForEpisode])
             }
-
         }
     }
+
+
 }

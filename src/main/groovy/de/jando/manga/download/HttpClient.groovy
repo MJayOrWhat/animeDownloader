@@ -6,12 +6,9 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 
-/**
- * Created by mjando on 02.06.16.
- */
 class HttpClient {
 
-    String path = "/media/mjando/Libraries/Owncloud/Serien/"
+    String path
 
     CloseableHttpClient httpclient
     CloseableHttpResponse response
@@ -24,8 +21,6 @@ class HttpClient {
         response = httpclient.execute(httpGet)
         file.newOutputStream().write(getFileContentBytes(response))
         println "${folderAndFileName} Episode ${episodeNumber} successfully downloaded"
-
-
     }
 
     public byte[] getFileContentBytes(CloseableHttpResponse response) {

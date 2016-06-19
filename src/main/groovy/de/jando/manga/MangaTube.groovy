@@ -34,13 +34,16 @@ abstract class MangaTube {
     }
 
     void loadAllVideoPages() {
-        episodeList.each { String episodeNumber ->
-            println "#####################################"
-            println "Now at Epsiodenumber ${episodeNumber}"
-            String videoPageContent = httpClient.getFileContentString(completeUrl + episodeNumber)
-            filterVideoPage(videoPageContent, episodeNumber)
+        if (!fileAlreadyExists(episodeNumber)) {
+            episodeList.each { String episodeNumber ->
+                println "#####################################"
+                println "Now at Epsiodenumber ${episodeNumber}"
+                String videoPageContent = httpClient.getFileContentString(completeUrl + episodeNumber)
+                filterVideoPage(videoPageContent, episodeNumber)
+            }
+        }else {
+            println "${folderAndFileName} Episode ${episodeNumber} skipped, it already exist"
         }
-
     }
 
     void filterVideoPage(String videoPageContent, String episodeNumber) {

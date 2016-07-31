@@ -1,4 +1,4 @@
-package de.jando.manga.download
+package de.jando.anime.download
 
 import org.apache.commons.io.IOUtils
 import org.apache.http.client.methods.CloseableHttpResponse

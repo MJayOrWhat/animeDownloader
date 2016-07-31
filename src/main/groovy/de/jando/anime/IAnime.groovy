@@ -1,9 +1,9 @@
-package de.jando.manga
+package de.jando.anime
 
 /**
  * Created by mjando on 02.06.16.
  */
-interface IManga {
+interface IAnime {
 
     public void beginWithDownload()
 

@@ -1,8 +1,8 @@
-package de.jando.manga
+package de.jando.anime
 
-import de.jando.manga.download.HttpClient
+import de.jando.anime.download.HttpClient
 
-abstract class MangaTube {
+abstract class AnimeTube {
 
     public void beginWithDownload() {
         this.setupFolder()
@@ -28,22 +28,26 @@ abstract class MangaTube {
         println "Fetching all EpisodeNumbers"
         alleEpisodeHtmlContent.eachLine { String htmlLine ->
             if (htmlLine.contains(this.htmlLine)) {
-                episodeList.add(htmlLine.split("-")[indexForEpisode].replace("'", "").replace("\"", "").replace(">", ""))
+                episodeList.add(htmlLine.split("-")[indexForEpisode]
+                        .replace("'", "")
+                        .replace("\"", "")
+                        .replace(">", ""))
             }
         }
     }
 
     void loadAllVideoPages() {
-        if (!fileAlreadyExists(episodeNumber)) {
-            episodeList.each { String episodeNumber ->
+        episodeList.each { String episodeNumber ->
+            if (!fileAlreadyExists(episodeNumber)) {
                 println "#####################################"
                 println "Now at Epsiodenumber ${episodeNumber}"
                 String videoPageContent = httpClient.getFileContentString(completeUrl + episodeNumber)
                 filterVideoPage(videoPageContent, episodeNumber)
+            } else {
+                println "${folderAndFileName} Episode ${episodeNumber} skipped, it already exist"
             }
-        }else {
-            println "${folderAndFileName} Episode ${episodeNumber} skipped, it already exist"
         }
+
     }
 
     void filterVideoPage(String videoPageContent, String episodeNumber) {

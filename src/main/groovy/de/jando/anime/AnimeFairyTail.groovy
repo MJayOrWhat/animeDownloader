@@ -1,8 +1,8 @@
-package de.jando.manga
+package de.jando.anime
 
-import de.jando.manga.download.HttpClient
+import de.jando.anime.download.HttpClient
 
-class MangaFairyTail extends MangaTube implements IManga {
+class AnimeFairyTail extends AnimeTube implements IAnime {
 
     String path
 

@@ -1,11 +1,11 @@
-package de.jando.manga
+package de.jando.anime
 
-import de.jando.manga.download.HttpClient
+import de.jando.anime.download.HttpClient
 
 /**
  * Created by mjand on 05.06.2016.
  */
-class MangaOnePiece extends MangaTube implements IManga {
+class AnimeOnePiece extends AnimeTube implements IAnime {
 
     String path
 

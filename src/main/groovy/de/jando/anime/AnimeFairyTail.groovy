@@ -22,6 +22,7 @@ class AnimeFairyTail extends AnimeTube implements IAnime {
     HttpClient httpClient
 
     void loadAllVideoPages() {
+        episodeList = ["264", "265", "266", "267", "268", "269", "270", "271", "272", "273", "274", "275", "276", "277"]
         episodeList.each { String episodeNumber ->
             if (!fileAlreadyExists(episodeNumber)) {
                 println "#####################################"

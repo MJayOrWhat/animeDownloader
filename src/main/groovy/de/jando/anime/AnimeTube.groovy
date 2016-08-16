@@ -55,7 +55,9 @@ abstract class AnimeTube {
             String videoUrl = null
             if (htmlLine.contains("ani-stream")) {
                 println "Video file fetched"
-                videoUrl = htmlLine.split("\"")[1]
+                //println htmlLine
+                videoUrl = htmlLine.find(/http:\\/\\/(www\.)?ani-stream\.com\\/embed-([a-z]|[0-9])+\.html/)
+                //println videoUrl
             }
             if (videoUrl)
                 fetchVideoFromPage(videoUrl, episodeNumber)
